@@ -1,0 +1,4 @@
+User-agent:*
+Disallow:
+
+Sitemap: https://ltpp.vip/pages/sitemap.xml
