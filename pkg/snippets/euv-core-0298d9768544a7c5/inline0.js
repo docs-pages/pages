@@ -1,0 +1,1 @@
+function a(a,b){const c=[];let d=a.target;let e=0;while(d){if(b!==0&&e>=b)break;if(d.nodeType===1){const a=d.getAttribute&&d.getAttribute(`data-euv-id`);if(a!==null&&a!==undefined&&a!==``){const b=parseInt(a,10);!isNaN(b)&&c.push(b)}};d=d.parentElement;e+=1};return Float64Array.from(c)}export{a as euv_event_collect_id_chain}
