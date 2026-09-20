@@ -1,5 +1,5 @@
-import { euv_event_collect_id_chain } from './snippets/euv-core-96a31e20149fb073/inline0.js';
-import * as import1 from "./snippets/euv-core-96a31e20149fb073/inline1.js"
+import { euv_event_collect_id_chain } from './snippets/euv-core-3c603585160d25d3/inline0.js';
+import * as import1 from "./snippets/euv-core-3c603585160d25d3/inline1.js"
 
 
 export function main() {
@@ -111,7 +111,7 @@ function __wbg_get_imports() {
                 wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
             }
         },
-        __wbg_euv_event_collect_id_chain_2cd0e54800a4eb75: function(arg0, arg1) {
+        __wbg_euv_event_collect_id_chain_ec70154dc9f21d77: function(arg0, arg1) {
             const ret = euv_event_collect_id_chain(arg0, arg1 >>> 0);
             return ret;
         },
@@ -144,14 +144,6 @@ function __wbg_get_imports() {
         __wbg_getElementById_ccc92d66acf76819: function(arg0, arg1, arg2) {
             const ret = arg0.getElementById(getStringFromWasm0(arg1, arg2));
             return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
-        },
-        __wbg_getElementsByClassName_ec5ff56d9fb0f154: function(arg0, arg1, arg2) {
-            const ret = arg0.getElementsByClassName(getStringFromWasm0(arg1, arg2));
-            return ret;
-        },
-        __wbg_getElementsByTagName_954cf4a68d9fd2c3: function(arg0, arg1, arg2) {
-            const ret = arg0.getElementsByTagName(getStringFromWasm0(arg1, arg2));
-            return ret;
         },
         __wbg_getItem_5d579ac5f70ace34: function() { return handleError(function (arg0, arg1, arg2, arg3) {
             const ret = arg1.getItem(getStringFromWasm0(arg2, arg3));
@@ -291,10 +283,6 @@ function __wbg_get_imports() {
         __wbg_isConnected_03e41c8ccc9e9ad7: function(arg0) {
             const ret = arg0.isConnected;
             return ret;
-        },
-        __wbg_item_9f80597f0653fef5: function(arg0, arg1) {
-            const ret = arg0.item(arg1 >>> 0);
-            return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
         },
         __wbg_key_d29d670923b81510: function(arg0, arg1) {
             const ret = arg1.key;
@@ -556,7 +544,7 @@ function __wbg_get_imports() {
     return {
         __proto__: null,
         "./euv_docs_bg.js": import0,
-        "./snippets/euv-core-96a31e20149fb073/inline1.js": import1,
+        "./snippets/euv-core-3c603585160d25d3/inline1.js": import1,
     };
 }
 
