@@ -1,5 +1,5 @@
-import { euv_event_collect_id_chain } from './snippets/euv-core-1f7f8a3d7c9325b5/inline0.js';
-import * as import1 from "./snippets/euv-core-1f7f8a3d7c9325b5/inline1.js"
+import { euv_event_collect_id_chain } from './snippets/euv-core-b0ac47fe7d4265e9/inline0.js';
+import * as import1 from "./snippets/euv-core-b0ac47fe7d4265e9/inline1.js"
 
 
 export function main() {
@@ -111,7 +111,7 @@ function __wbg_get_imports() {
                 wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
             }
         },
-        __wbg_euv_event_collect_id_chain_090697d2e76726da: function(arg0, arg1) {
+        __wbg_euv_event_collect_id_chain_9eeaa29ee96a0f3c: function(arg0, arg1) {
             const ret = euv_event_collect_id_chain(arg0, arg1 >>> 0);
             return ret;
         },
@@ -584,7 +584,7 @@ function __wbg_get_imports() {
     return {
         __proto__: null,
         "./euv_docs_bg.js": import0,
-        "./snippets/euv-core-1f7f8a3d7c9325b5/inline1.js": import1,
+        "./snippets/euv-core-b0ac47fe7d4265e9/inline1.js": import1,
     };
 }
 
