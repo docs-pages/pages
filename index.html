@@ -34,6 +34,52 @@
         margin-top: 24px !important;
       }
     </style>
+    <script>
+      // site-local: re-center the active sidebar entry on viewport resize.
+      // euv-docs' built-in scroll_active_sidebar_item only fires on route
+      // change (see euv-docs/src/component/layout/view/fn.rs L588-614), so
+      // resizing the window can leave the active link outside the visible
+      // sidebar viewport. We mirror the same math here: pick every visible
+      // .c_nav_items_scroll container, find the active entry, and shift
+      // its scrollTop so the entry sits near the vertical center.
+      (function () {
+        function scrollActiveToCenter(container) {
+          var active = container.querySelector(
+            '.c_euv_sidebar_link_active, .c_euv_sidebar_group_title_active'
+          );
+          if (!active) return;
+          var cRect = container.getBoundingClientRect();
+          var aRect = active.getBoundingClientRect();
+          var target =
+            container.scrollTop +
+            (aRect.top - cRect.top) -
+            (cRect.height - aRect.height) / 2;
+          container.scrollTop = Math.max(0, target);
+        }
+        function run() {
+          var containers = document.querySelectorAll('.c_nav_items_scroll');
+          for (var i = 0; i < containers.length; i++) {
+            scrollActiveToCenter(containers[i]);
+          }
+        }
+        var resizeTimer = 0;
+        function schedule() {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            resizeTimer = 0;
+            run();
+          }, 120);
+        }
+        window.addEventListener('resize', schedule, { passive: true });
+        if (typeof ResizeObserver !== 'undefined') {
+          var ro = new ResizeObserver(schedule);
+          // Observe body so any layout change that resizes the sidebar
+          // container (font-load, async mount, drawer toggle) is caught
+          // even before the user touches the viewport.
+          ro.observe(document.documentElement);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>
