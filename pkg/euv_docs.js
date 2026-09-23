@@ -1,7 +1,3 @@
-import { euv_event_collect_id_chain } from './snippets/euv-core-ed562106549ad7d8/inline0.js';
-import * as import1 from "./snippets/euv-core-ed562106549ad7d8/inline1.js"
-
-
 export function main() {
     wasm.main();
 }
@@ -77,6 +73,10 @@ function __wbg_get_imports() {
             const ret = arg0.childNodes;
             return ret;
         },
+        __wbg_children_3175c2b4b8e7ea31: function(arg0) {
+            const ret = arg0.children;
+            return ret;
+        },
         __wbg_clearTimeout_dc6554a9312cb919: function(arg0, arg1) {
             arg0.clearTimeout(arg1);
         },
@@ -114,10 +114,6 @@ function __wbg_get_imports() {
             } finally {
                 wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
             }
-        },
-        __wbg_euv_event_collect_id_chain_7995b37611bc7cda: function(arg0, arg1) {
-            const ret = euv_event_collect_id_chain(arg0, arg1 >>> 0);
-            return ret;
         },
         __wbg_eval_7759a61726fa9c38: function() { return handleError(function (arg0, arg1) {
             const ret = eval(getStringFromWasm0(arg0, arg1));
@@ -214,6 +210,16 @@ function __wbg_get_imports() {
             let result;
             try {
                 result = arg0 instanceof Element;
+            } catch (_) {
+                result = false;
+            }
+            const ret = result;
+            return ret;
+        },
+        __wbg_instanceof_EventTarget_d065be2a8df26e43: function(arg0) {
+            let result;
+            try {
+                result = arg0 instanceof EventTarget;
             } catch (_) {
                 result = false;
             }
@@ -327,6 +333,10 @@ function __wbg_get_imports() {
             const ret = arg0.length;
             return ret;
         },
+        __wbg_length_f61522778e4fe217: function(arg0) {
+            const ret = arg0.length;
+            return ret;
+        },
         __wbg_localStorage_72d815b9c2adaaad: function() { return handleError(function (arg0) {
             const ret = arg0.localStorage;
             return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
@@ -353,6 +363,10 @@ function __wbg_get_imports() {
         },
         __wbg_new_with_length_6a9fc3631737ef8c: function(arg0) {
             const ret = new Array(arg0 >>> 0);
+            return ret;
+        },
+        __wbg_new_with_length_e90621e112da5f41: function(arg0) {
+            const ret = new Float64Array(arg0 >>> 0);
             return ret;
         },
         __wbg_parentNode_bf0725ead93471cf: function(arg0) {
@@ -457,6 +471,9 @@ function __wbg_get_imports() {
         __wbg_set_disabled_e7ee4ceabdb2d08a: function(arg0, arg1) {
             arg0.disabled = arg1 !== 0;
         },
+        __wbg_set_f1e37f7786b4c22e: function(arg0, arg1, arg2) {
+            arg0.set(getArrayF64FromWasm0(arg1, arg2));
+        },
         __wbg_set_hash_230141cc9565ef13: function() { return handleError(function (arg0, arg1, arg2) {
             arg0.hash = getStringFromWasm0(arg1, arg2);
         }, arguments); },
@@ -551,7 +568,7 @@ function __wbg_get_imports() {
             getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
         },
         __wbindgen_generic_0000000000000001: function(arg0, arg1) {
-            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [Externref], shim_idx: 266, ret: Result(Unit), inner_ret: Some(Result(Unit)) }, mutable: true }) -> Externref`.
+            // Cast intrinsic for `Closure(Closure { owned: true, function: Function { arguments: [Externref], shim_idx: 265, ret: Result(Unit), inner_ret: Some(Result(Unit)) }, mutable: true }) -> Externref`.
             const ret = makeMutClosure(arg0, arg1, wasm_bindgen_a74a6f0432620f47___convert__closures_____invoke___wasm_bindgen_a74a6f0432620f47___JsValue__core_ed718c3d60ebd546___result__Result_____wasm_bindgen_a74a6f0432620f47___JsError___true_);
             return ret;
         },
@@ -588,7 +605,6 @@ function __wbg_get_imports() {
     return {
         __proto__: null,
         "./euv_docs_bg.js": import0,
-        "./snippets/euv-core-ed562106549ad7d8/inline1.js": import1,
     };
 }
 
