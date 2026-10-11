@@ -31,10 +31,10 @@
         padding: 0;
       }
     </style>
-__EUV_LOADING_STYLE__
+<style>:root{--background: #ffffff;--accent: #000000;--accent-muted: #ffffff}@media(prefers-color-scheme:dark){:root{--background: #000000;--accent: #ffffff;--accent-muted: #000000}}#euv-loading{position:fixed;inset:0;display:flex;-webkit-user-select:none;user-select:none;align-items:center;justify-content:center;background:var(--background);z-index:9999}#euv-loading>div{-webkit-user-select:none;user-select:none;width:28px;height:28px;border:3px solid var(--accent-muted);border-top-color:var(--accent);border-radius:50%;box-sizing:border-box;animation:euv-spin .8s linear infinite}@keyframes euv-spin{0%{transform:rotate(0)}to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){#euv-loading>div{animation-duration:1.6s}}</style>"
   </head>
   <body>
-__EUV_LOADING_ELEMENT__
+<div id="euv-loading"><div></div></div>
     <div id="app"></div>
   </body>
   <script type="module">
@@ -43,6 +43,6 @@ __EUV_LOADING_ELEMENT__
     main();
   </script>
   <script>
-__EUV_LOADING_REMOVAL__
+(function(){var e=document.getElementById("euv-loading");if(!e)return;var n=document.getElementById("app");function r(){e&&e.parentNode&&e.parentNode.removeChild(e)}if(!n){r();return}if(n.firstChild){r();return}var t=new MutationObserver(function(){n.firstChild&&(t.disconnect(),r())});t.observe(n,{childList:true})})();
   </script>
 </html>
