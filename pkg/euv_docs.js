@@ -471,6 +471,10 @@ function __wbg_get_imports() {
             const ret = arg0.screen;
             return ret;
         }, arguments); },
+        __wbg_scrollHeight_34e2fd098584326e: function(arg0) {
+            const ret = arg0.scrollHeight;
+            return ret;
+        },
         __wbg_scrollIntoView_f6c27be4871460ef: function(arg0) {
             arg0.scrollIntoView();
         },
