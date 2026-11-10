@@ -1,0 +1,107 @@
+name: Actions storage sweeper
+
+# Keeps the shared Actions artifact storage pool from filling up.
+#
+# Why this exists: GitHub bills artifact storage in GB-hours over the
+# billing month, and this organisation only has 500 MB included (the
+# `docs-pages` org is on the free plan). Every GitHub Pages build uploads
+# a `github-pages` artifact of the whole built site (~58 MB), so a handful
+# of stale artifacts is enough to push the account past the included
+# amount. With a $0 budget in place the account is not charged overage —
+# Actions usage is simply *blocked* until the cycle resets, which would
+# break the deploy pipeline.
+#
+# This job deletes artifacts once they can no longer be in use and prunes
+# old workflow runs on a best-effort basis. It runs right after each
+# deploy (storage is billed per hour, so deleting promptly is what
+# actually saves the allowance) and nightly as a backstop.
+
+on:
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: actions-storage-sweeper
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Sweep stale artifacts and workflow runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          # An artifact is only removed once it cannot possibly still be
+          # picked up by an in-flight deployment. Pages builds finish in
+          # about a minute, so 90 minutes is a very generous floor.
+          ARTIFACT_MIN_AGE_MINUTES: '90'
+          # Workflow runs are kept for two weeks so a failed deploy can
+          # still be inspected.
+          RUN_MAX_AGE_DAYS: '14'
+        run: |
+          set -euo pipefail
+          now=$(date -u +%s)
+
+          # ---- artifacts ----------------------------------------------------
+          gh api --paginate "repos/${REPO}/actions/artifacts?per_page=100" \
+            --jq '.artifacts[] | select(.expired == false) | [.id, .created_at, .size_in_bytes, .name] | @tsv' \
+            > /tmp/artifacts.tsv || true
+
+          deleted=0
+          kept=0
+          while IFS=$'\t' read -r id created size name; do
+            [ -n "${id:-}" ] || continue
+            created_epoch=$(date -u -d "$created" +%s)
+            age_min=$(( (now - created_epoch) / 60 ))
+            if [ "$age_min" -ge "$ARTIFACT_MIN_AGE_MINUTES" ]; then
+              if gh api -X DELETE "repos/${REPO}/actions/artifacts/${id}" >/dev/null 2>&1; then
+                echo "deleted artifact ${id} (${name}, ${size} bytes, ${age_min} min old)"
+                deleted=$((deleted + 1))
+              else
+                echo "::warning::could not delete artifact ${id}"
+              fi
+            else
+              echo "keeping artifact ${id} (${name}, ${age_min} min old)"
+              kept=$((kept + 1))
+            fi
+          done < /tmp/artifacts.tsv
+
+          # ---- workflow runs (best effort) -----------------------------------
+          cutoff=$(date -u -d "${RUN_MAX_AGE_DAYS} days ago" +%Y-%m-%dT%H:%M:%SZ)
+          for branch in master gh-pages ""; do
+            if [ -n "$branch" ]; then
+              q="?branch=${branch}&per_page=100"
+            else
+              q="?per_page=100"
+            fi
+            gh api --paginate "repos/${REPO}/actions/runs${q}" \
+              --jq ".workflow_runs[] | select(.created_at < \"${cutoff}\") | .id" 2>/dev/null || true
+          done | sort -u > /tmp/old-runs.txt || true
+
+          pruned=0
+          while read -r rid; do
+            [ -n "${rid:-}" ] || continue
+            # The run API answers 404 for some runs it still lists; treat a
+            # failure as "nothing to do" rather than failing the sweep.
+            if gh api -X DELETE "repos/${REPO}/actions/runs/${rid}" >/dev/null 2>&1; then
+              pruned=$((pruned + 1))
+            fi
+          done < /tmp/old-runs.txt
+
+          {
+            echo "### Actions storage sweep"
+            echo ""
+            echo "- artifacts deleted: ${deleted}"
+            echo "- artifacts kept (too young): ${kept}"
+            echo "- workflow runs pruned: ${pruned}"
+          } >> "$GITHUB_STEP_SUMMARY"
