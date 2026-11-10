@@ -1,5 +1,5 @@
 source_repo=https://github.com/docs-pages/docs
-source_sha=8af6fa81c4f4164701f70adc7a675ac42fd51642
+source_sha=b80303c3c42decaf4db64a5ef827d8f838a86b25
 workflow_run=local
-euv_version=0.32.6
-built_at=2026-10-24T12:24:45Z
+euv_version=0.34.7
+built_at=2026-11-10T13:50:02Z
