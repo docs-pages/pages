@@ -1,0 +1,12 @@
+/* Inherit the docs typography, colors and theme; scope to the home catalog. */
+[data-docs-catalog] { margin-block: 1.5rem 3rem; min-width: 0; }
+.docs-catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+.docs-catalog-card { border: 1px solid var(--border-color, #8886); border-radius: .75rem; padding: 1.25rem; min-width: 0; }
+.docs-catalog-card h3 { margin-block: 0 1rem; }
+.docs-catalog-card dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .6rem 1rem; margin: 0; }
+.docs-catalog-card dt { opacity: .75; }
+.docs-catalog-card dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.docs-catalog-card code { display: block; overflow-wrap: anywhere; white-space: normal; user-select: all; margin-block: .75rem; }
+.docs-catalog-card summary { cursor: pointer; font-family: monospace; }
+[data-docs-catalog] button { font: inherit; color: inherit; background: transparent; border: 1px solid var(--border-color, #8886); border-radius: .4rem; padding: .45rem .8rem; cursor: pointer; }
+[data-docs-catalog] :is(button, summary, a):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
