@@ -1,12 +1,14 @@
-/* Inherit the docs typography, colors and theme; scope to the home catalog. */
-[data-docs-catalog] { margin-block: 1.5rem 3rem; min-width: 0; }
-.docs-catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
-.docs-catalog-card { border: 1px solid var(--border-color, #8886); border-radius: .75rem; padding: 1.25rem; min-width: 0; }
-.docs-catalog-card h3 { margin-block: 0 1rem; }
-.docs-catalog-card dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .6rem 1rem; margin: 0; }
-.docs-catalog-card dt { opacity: .75; }
+/* Match the euv_card surface and typography through the active scheme tokens. */
+[data-docs-catalog] { margin-block: var(--space-2xl) var(--space-3xl); min-width: 0; }
+.docs-catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--gap-component); }
+[data-docs-catalog] .docs-catalog-card { color: var(--card-foreground); background: var(--card); border: var(--surface-border-width) solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-2xl); box-sizing: border-box; min-width: 0; }
+[data-docs-catalog] .docs-catalog-card h3 { margin: var(--space-lg) 0; color: var(--card-foreground); font-size: var(--font-lg); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tight); }
+[data-docs-catalog] .docs-catalog-card h3 a { color: inherit; font-weight: inherit; }
+.docs-catalog-card dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-sm) var(--space-lg); margin: 0; }
+.docs-catalog-card dt { color: var(--muted-foreground); }
 .docs-catalog-card dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
-.docs-catalog-card code { display: block; overflow-wrap: anywhere; white-space: normal; user-select: all; margin-block: .75rem; }
-.docs-catalog-card summary { cursor: pointer; font-family: monospace; }
-[data-docs-catalog] button { font: inherit; color: inherit; background: transparent; border: 1px solid var(--border-color, #8886); border-radius: .4rem; padding: .45rem .8rem; cursor: pointer; }
-[data-docs-catalog] :is(button, summary, a):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.docs-catalog-card code { display: block; overflow-wrap: anywhere; white-space: normal; user-select: all; margin-block: var(--space-md); }
+.docs-catalog-card summary { cursor: pointer; font-family: var(--font-family-mono); }
+[data-docs-catalog] button { font: inherit; color: var(--primary-foreground); background: var(--primary); border: var(--border-width) solid transparent; border-radius: var(--radius-md); padding: var(--space-sm) var(--space-lg); cursor: pointer; }
+[data-docs-catalog] :is(button, summary, a):focus-visible { outline: none; box-shadow: 0 0 0 calc(var(--ring-width) + var(--ring-offset)) var(--ring); }
+@media (max-width: 767px) { [data-docs-catalog] .docs-catalog-card h3 { font-size: var(--font-md); } }
