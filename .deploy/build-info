@@ -1,4 +1,4 @@
 source_repo=https://github.com/docs-pages/docs
 source_sha=b070cf5a3e21ce7fb4d59c657110c21f08304b3b
-workflow_run=44972388896
-built_at=2026-11-22T01:47:57Z
+workflow_run=local
+built_at=2026-11-22T02:07:24Z
